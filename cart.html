@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Cart - Copra Shop</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="order_style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="order_style.css">
+    <style>
+        /* Bootstrap integration styles */
+        .cart-layout {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: var(--space-xl);
+        }
+        
+        @media (min-width: 992px) {
+            .cart-layout {
+                grid-template-columns: 2fr 1fr;
+                gap: var(--space-2xl);
+            }
+        }
+        
+        .cart-item {
+            background: var(--surface);
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius-lg);
+            padding: var(--space-lg);
+            margin-bottom: var(--space-md);
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition);
+        }
+        
+        .cart-item:hover {
+            box-shadow: var(--shadow);
+        }
+        
+        .cart-item-image {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: var(--radius);
+            background: var(--page-background);
+        }
+        
+        .cart-item-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: var(--space-xs);
+        }
+        
+        .cart-item-price {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: var(--space-sm);
+        }
+        
+        .quantity-controls {
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+        }
+        
+        .quantity-btn {
+            background: var(--border-light);
+            border: none;
+            width: 32px;
+            height: 32px;
+            border-radius: var(--radius);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition);
+            font-weight: 600;
+        }
+        
+        .quantity-btn:hover {
+            background: var(--border);
+        }
+        
+        .quantity-display {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            padding: var(--space-xs) var(--space-sm);
+            border-radius: var(--radius);
+            min-width: 50px;
+            text-align: center;
+            font-weight: 600;
+        }
+        
+        .remove-item {
+            background: var(--error);
+            color: white;
+            border: none;
+            padding: var(--space-xs) var(--space-sm);
+            border-radius: var(--radius);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .remove-item:hover {
+            background: #dc2626;
+        }
+        
+        .btn-custom {
+            border-radius: var(--radius-lg);
+            font-weight: 600;
+            transition: var(--transition);
+            box-shadow: var(--shadow-sm);
+        }
+        
+        .btn-custom:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow);
+        }
+        
+        .card-custom {
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition);
+        }
+        
+        .card-custom:hover {
+            box-shadow: var(--shadow);
+        }
+    </style>
+</head>
+<body>
+    <div class="top-bar">
+        <div class="container">
+            <div class="top-left">
+                <span><i class="fas fa-phone"></i> 059937119</span>
+                <span><i class="fas fa-envelope"></i> info@cobrashop.com</span>
+            </div>
+            <div class="top-right">
+                <a href="#" class="language-switch">العربية</a>
+            </div>
+        </div>
+    </div>
+
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <img src="images\logo.jpg" alt="Cobra Shop" class="logo-img">
+                </div>
+
+                <div class="header-nav">
+                    <a href="index.html" class="nav-link">
+                        <i class="fas fa-arrow-left"></i>
+                        <span>Continue Shopping</span>
+                    </a>
+                </div>
+
+                <div class="user-actions">
+                    <div class="user-info">
+                        <i class="fas fa-user"></i>
+                        <span id="userWelcome">مرحباً</span>
+                    </div>
+                    <div class="profile-container">
+                        <a href="profile.html" class="profile-btn">
+                            <i class="fas fa-user-circle"></i>
+                            <span>Profile</span>
+                        </a>
+                    </div>
+                    <div class="login-container">
+                        <a href="login_page.html" class="login-btn">
+                            <i class="fas fa-sign-in-alt"></i>
+                            <span>Login</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <div class="container">
+            <div class="page-header text-center mb-5">
+                <h1 class="display-4 fw-bold text-primary mb-3">
+                    <i class="fas fa-shopping-cart me-3"></i>Shopping Cart
+                </h1>
+                <p class="lead text-muted">Review your items and proceed to checkout</p>
+            </div>
+
+            <div class="row g-4">
+                <div class="col-lg-8">
+                    <div class="card card-custom h-100">
+                        <div class="card-header bg-white border-bottom">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <h3 class="card-title mb-0 fw-bold">Your Items</h3>
+                                <button class="btn btn-outline-danger btn-sm btn-custom" onclick="clearCart()">
+                                    <i class="fas fa-trash me-2"></i>Clear Cart
+                                </button>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="empty-cart text-center py-5" id="emptyCartMessage" style="display: none;">
+                                <div class="empty-cart-icon mb-4">
+                                    <i class="fas fa-shopping-cart text-muted" style="font-size: 4rem;"></i>
+                                </div>
+                                <h4 class="text-dark mb-3">Your cart is empty</h4>
+                                <p class="text-muted mb-4">Add some products to get started</p>
+                                <a href="index.html" class="btn btn-primary btn-lg btn-custom">
+                                    <i class="fas fa-arrow-left me-2"></i>Continue Shopping
+                                </a>
+                            </div>
+
+                            <div class="cart-items-list" id="cartItemsList">
+                                <div class="cart-item">
+                                    <div class="row align-items-center">
+                                        <div class="col-md-2 col-3">
+                                            <img src="https://via.placeholder.com/80x80" alt="Product" class="cart-item-image img-fluid">
+                                        </div>
+                                        <div class="col-md-4 col-9">
+                                            <h5 class="cart-item-title">Sample Product Name</h5>
+                                            <p class="cart-item-price">$99.99</p>
+                                        </div>
+                                        <div class="col-md-3 col-6">
+                                            <div class="quantity-controls">
+                                                <button class="quantity-btn" onclick="updateQuantity(-1)">-</button>
+                                                <span class="quantity-display">1</span>
+                                                <button class="quantity-btn" onclick="updateQuantity(1)">+</button>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2 col-3">
+                                            <p class="fw-bold text-primary mb-0">$99.99</p>
+                                        </div>
+                                        <div class="col-md-1 col-3">
+                                            <button class="remove-item btn btn-sm" onclick="removeItem()">
+                                                <i class="fas fa-trash"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4">
+                    <div class="card card-custom position-sticky" style="top: 120px;">
+                        <div class="card-header bg-primary text-white text-center">
+                            <h4 class="card-title mb-0 fw-bold">Order Summary</h4>
+                        </div>
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between py-2">
+                                <span>Subtotal:</span>
+                                <span class="fw-bold" id="cartSubtotal">$99.99</span>
+                            </div>
+                            <div class="d-flex justify-content-between py-2">
+                                <span>Shipping:</span>
+                                <span class="fw-bold" id="shippingCost">$5.00</span>
+                            </div>
+                            <div class="d-flex justify-content-between py-2">
+                                <span>Tax:</span>
+                                <span class="fw-bold" id="taxAmount">$8.00</span>
+                            </div>
+                            <hr class="my-3">
+                            <div class="d-flex justify-content-between py-2">
+                                <span class="h5 fw-bold">Total:</span>
+                                <span class="h5 fw-bold text-primary" id="cartTotal">$112.99</span>
+                            </div>
+
+                            <button class="btn btn-primary btn-lg w-100 mt-4 btn-custom" onclick="proceedToCheckout()">
+                                <i class="fas fa-credit-card me-2"></i>Proceed to Checkout
+                            </button>
+
+                            <div class="mt-4">
+                                <div class="d-flex align-items-center mb-2">
+                                    <i class="fas fa-shield-alt text-success me-2"></i>
+                                    <small class="text-muted">Secure Checkout</small>
+                                </div>
+                                <div class="d-flex align-items-center">
+                                    <i class="fas fa-truck text-success me-2"></i>
+                                    <small class="text-muted">Free Shipping Over $100</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="newsletter-section">
+                <h3>ليصلك كل جديد</h3>
+                <div class="newsletter-form">
+                    <input type="email" placeholder="عنوان البريد الألكتروني" id="newsletterEmail">
+                    <button onclick="subscribeNewsletter()">سجل</button>
+                </div>
+                <label class="newsletter-consent">
+                    <input type="checkbox" id="newsletterConsent">
+                    أوافق على استقبال ايميلات دعائية وعروض وحملات تسويقية من وطني مول وأوافق على شروط التسجيل
+                </label>
+            </div>
+
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>معلومات</h4>
+                    <ul>
+                        <li><a href="#">من هو كوبرا شوب</a></li>
+                        <li><a href="#">كيفية عمل الطلبية</a></li>
+                        <li><a href="#">كيفية الوصول الينا</a></li>
+                        <li><a href="#">نظام العمل</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>اتصل بنا</h4>
+                    <ul>
+                        <li><i class="fas fa-clock"></i> من السبت للخميس 16:00 - 9:00</li>
+                        <li><i class="fas fa-phone"></i> 0599371191</li>
+                        <li><i class="fas fa-envelope"></i> info@cobrashop.com</li>
+                        <li><i class="fab fa-whatsapp"></i> 972599371191</li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>فروع</h4>
+                    <ul>
+                        <li><a href="https://www.facebook.com/mohammad.abuhijleh.5">كوبرا على فيسبوك</a></li>
+                        <li><a href="https://www.instagram.com/mohammad_abu_hijleh04/">كوبرا على انستغرام</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="payment-methods">
+                <img src="visa.png" alt="Visa" onerror="this.onerror=null;this.src='https://placehold.co/60x30/CCCCCC/FFFFFF?text=Visa';">
+                <img src="mastercard.png" alt="Mastercard" onerror="this.onerror=null;this.src='https://placehold.co/60x30/CCCCCC/FFFFFF?text=MC';">
+                <img src="paypal.png" alt="PayPal" onerror="this.onerror=null;this.src='https://placehold.co/60x30/CCCCCC/FFFFFF?text=PayPal';">
+            </div>
+
+            <div class="copyright">
+                <p>&copy; 2025 Cobra Shop. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="cart.js"></script>
+</body>
+</html>

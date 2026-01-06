@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Page - Cobra Shop</title>
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    
+    <link rel="stylesheet" href="order_style.css">
+</head>
+<body>
+    <div class="top-bar">
+        <div class="container">
+            <div class="top-left">
+                <span><i class="fas fa-phone"></i> 059937119</span>
+                <span><i class="fas fa-envelope"></i> info@cobrashop.com</span>
+            </div>
+            <div class="top-right">
+                <a href="#" class="language-switch">العربية</a>
+            </div>
+        </div>
+    </div>
+
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <img src="images\logo.jpg" alt="Cobra Shop" class="logo-img">
+                </div>
+
+                <div class="search-container">
+                    <input type="text" id="searchInput" placeholder="عن ماذا تريد ان تبحث" class="search-input">
+                    <button class="search-btn" onclick="searchProducts()">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
+
+                <div class="user-actions">
+                    <div class="login-container">
+                        <a href="login_page.html" class="login-btn">
+                            <i class="fas fa-sign-in-alt"></i>
+                            <span>Login</span>
+                        </a>
+                    </div>
+                    <div class="user-info">
+                        <i class="fas fa-user"></i>
+                        <span id="userWelcome">مرحباً</span>
+                    </div>
+                    <div class="profile-container">
+                        <a href="profile.html" class="profile-btn">
+                            <i class="fas fa-user-circle"></i>
+                            <span>Profile</span>
+                        </a>
+                    </div>
+                    <div class="cart-container">
+                        <a href="cart.html" class="cart-btn">
+                            <i class="fas fa-shopping-cart"></i>
+                            <span id="cartCount">0</span>
+                        </a>
+                    </div>
+                </div>
+    </header>
+
+    <main class="main-content">
+        <section class="hero-banner">
+            <div class="banner-slide active">
+                <div class="banner-image">
+                    <img src="images/Banner1.png" alt="Banner 1">
+                </div>
+                <div class="banner-content">
+                    <h1>إنطلق نحو المستقبل</h1>
+                    <p>اكتشف أحدث المنتجات التقنية</p>
+                    <button class="cta-btn">تسوق الآن</button>
+                </div>
+            </div>
+        </section>
+
+        <div class="container">
+            <div class="filter-bar">
+                <div class="filter-group">
+                    <label for="categoryFilter">الفئة:</label>
+                    <select id="categoryFilter" onchange="applyFilters()">
+                        <option value="all">جميع الفئات</option>
+                        </select>
+                </div>
+                
+                <div class="filter-group">
+                    <label for="priceFilter">السعر:</label>
+                    <select id="priceFilter" onchange="applyFilters()">
+                        <option value="all">جميع الأسعار</option>
+                        <option value="0-100">$0 - $100</option>
+                        <option value="100-500">$100 - $500</option>
+                        <option value="500-1000">$500 - $1000</option>
+                        <option value="1000+">$1000+</option>
+                    </select>
+                </div>
+                
+                <div class="filter-group">
+                    <label for="sortFilter">الترتيب:</label>
+                    <select id="sortFilter" onchange="applyFilters()">
+                        <option value="name">بالاسم</option>
+                        <option value="price-low">السعر: منخفض إلى مرتفع</option>
+                        <option value="price-high">السعر: مرتفع إلى منخفض</option>
+                        <option value="newest">الأحدث</option>
+                        <option value="best-selling">الأكثر مبيعاً</option>
+                    </select>
+                </div>
+            </div>
+
+                <main class="products-main">
+                    <section class="products-section">
+                        <div class="section-header">
+                            <h2 class="section-title">منتجاتنا</h2>
+                            <div class="products-count" id="productsCount">
+                                <span id="currentCount">0</span> من <span id="totalCount">0</span> منتج
+                            </div>
+                        </div>
+                        
+                        <div class="loading" id="loadingSpinner">
+                            <i class="fas fa-spinner fa-spin"></i>
+                            <span>جاري تحميل المنتجات...</span>
+                        </div>
+                        
+                        <div class="products-container">
+                            <div class="products-grid" id="productsGrid">
+                                </div>
+                            
+                            <div class="no-products" id="noProducts" style="display: none;">
+                                <i class="fas fa-search"></i>
+                                <h3>لم يتم العثور على منتجات</h3>
+                                <p>جرب تغيير معايير البحث أو الفلترة</p>
+                            </div>
+                        </div>
+                        
+                        <div class="load-more-container">
+                            <button class="load-more-btn" id="loadMoreBtn" onclick="loadMoreProducts()">
+                                <i class="fas fa-plus"></i>
+                                تحميل المزيد من المنتجات
+                            </button>
+                        </div>
+                    </section>
+                </div>
+            </main>
+    </main>
+
+    <div class="cart-preview" id="cartPreview" style="display: none;">
+        <div class="cart-preview-header">
+            <h3>Cart Preview</h3>
+            <button class="close-preview" onclick="hideCartPreview()">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="cart-preview-items" id="cartPreviewItems">
+            </div>
+        <div class="cart-preview-footer">
+            <div class="cart-preview-total">
+                <strong>Total: $<span id="cartPreviewTotal">0.00</span></strong>
+            </div>
+            <a href="cart.html" class="view-cart-btn">
+                View Full Cart
+            </a>
+        </div>
+    </div>
+
+    <div class="modal" id="productModal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeProductModal()">&times;</span>
+            <div class="modal-body" id="modalBody">
+                </div>
+        </div>
+    </div>
+
+    <div class="overlay" id="overlay"></div>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="newsletter-section">
+                <h3>ليصلك كل جديد</h3>
+                <div class="newsletter-form">
+                    <input type="email" placeholder="عنوان البريد الألكتروني" id="newsletterEmail">
+                    <button onclick="subscribeNewsletter()">سجل</button>
+                </div>
+                <label class="newsletter-consent">
+                    <input type="checkbox" id="newsletterConsent">
+                    أوافق على استقبال ايميلات دعائية وعروض وحملات تسويقية من كوبرا شوب وأوافق على شروط التسجيل
+                </label>
+            </div>
+
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>معلومات</h4>
+                    <ul>
+                        <li><a href="#">من هو كوبرا شوب</a></li>
+                        <li><a href="#">كيفية عمل الطلبية</a></li>
+                        <li><a href="#">كيفية الوصول الينا</a></li>
+                        <li><a href="#">نظام العمل</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>اتصل بنا</h4>
+                    <ul>
+                        <li><i class="fas fa-clock"></i> من السبت للخميس 16:00 - 9:00</li>
+                        <li><i class="fas fa-phone"></i> 0599371191</li>
+                        <li><i class="fas fa-envelope"></i> info@cobrashop.com</li>
+                        <li><i class="fab fa-whatsapp"></i> 972599371191</li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>فروع</h4>
+                    <ul>
+                        <li><a href="https://www.facebook.com/mohammad.abuhijleh.5">كوبرا على فيسبوك</a></li>
+                        <li><a href="https://www.instagram.com/mohammad_abu_hijleh04/">كوبرا على انستغرام</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="payment-methods">
+                <img src="visa.png" alt="Visa" onerror="this.onerror=null;this.src='https://placehold.co/60x30/CCCCCC/FFFFFF?text=Visa';">
+                <img src="mastercard.png" alt="Mastercard" onerror="this.onerror=null;this.src='https://placehold.co/60x30/CCCCCC/FFFFFF?text=MC';">
+                <img src="paypal.png" alt="PayPal" onerror="this.onerror=null;this.src='https://placehold.co/60x30/CCCCCC/FFFFFF?text=PayPal';">
+            </div>
+
+            <div class="copyright">
+                <p>&copy; 2025 Cobra Shop. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script src="order-script.js"></script>
+</body>
+</html>

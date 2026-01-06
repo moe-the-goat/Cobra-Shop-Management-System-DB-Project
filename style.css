@@ -1,0 +1,381 @@
+/* * style.css - Computer Accessories Shop Theme */ 
+:root {
+    --primary: #2563eb; /* Blue */
+    --primary-hover: #1d4ed8;
+    --primary-light: #dbeafe;
+    --secondary: #10b981; /* Green */
+    --text-dark: #1f2937; /* Dark gray for text */
+    --text-light: #6b7280; /* Lighter gray */
+    --text-on-primary: #ffffff;
+    --surface: #ffffff; /* Card background */
+    --page-background: #f0f2f5; /* Fallback color */
+    --border: #d1d5db;
+    --border-light: #e5e7eb;
+    --error: #ef4444;
+    --success: #10b981;
+    --warning: #f59e0b;
+    
+    --radius-sm: 6px;
+    --radius: 8px;
+    --radius-lg: 12px;
+    --shadow-form: 0 2px 12px rgba(0, 0, 0, 0.1);
+    
+    --space-xs: 0.5rem; /* 8px */
+    --space-sm: 0.75rem; /* 12px */
+    --space-md: 1rem;   /* 16px */
+    --space-lg: 1.5rem; /* 24px */
+    --space-xl: 2rem;   /* 32px */
+    --space-2xl: 3rem;  /* 48px */
+    --space-3xl: 4rem;  /* 64px */
+
+    --font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+    --transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { scroll-behavior: smooth; height: 100%; }
+
+body {
+    font-family: var(--font-family);
+    font-size: 16px;
+    line-height: 1.6;
+    color: var(--text-dark);
+    /* Computer accessories background */
+    background-image: url('https://images.unsplash.com/photo-1540932239986-30128078f3c5');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    overflow-x: hidden;
+    position: relative;
+}
+
+/* Background overlay for better readability */
+body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(255, 255, 255, 0.85);
+    z-index: -1;
+}
+
+.page-wrapper {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    width: 100%;
+    position: relative;
+    z-index: 1;
+}
+
+/* Rest of your existing CSS remains the same */
+.content-grid {
+    display: flex;
+    flex-grow: 1;
+    align-items: center;
+    justify-content: center;
+    padding: var(--space-xl) var(--space-md);
+    gap: var(--space-3xl);
+    width: 100%;
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+.branding-section {
+    flex: 1;
+    padding-right: var(--space-xl);
+    text-align: left;
+    max-width: 480px;
+}
+
+.branding-section .logo-container {
+    margin-bottom: var(--space-lg);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; /* Align logo items to the left */
+}
+
+.branding-section .logo-icon {
+    font-size: 3.5rem; /* Larger logo icon */
+    color: var(--primary);
+    margin-bottom: var(--space-md);
+}
+
+.branding-section .logo-text {
+    font-size: 2.75rem; /* Larger logo text */
+    font-weight: 700;
+    color: var(--text-dark); /* Dark text for logo */
+    line-height: 1.2;
+}
+
+.branding-section .logo-tagline {
+    font-size: 1.125rem;
+    color: var(--text-light);
+    margin-top: var(--space-xs);
+}
+
+.branding-section .branding-subtitle {
+    font-size: 1.25rem; /* Subtitle below logo/tagline */
+    color: var(--text-dark);
+    line-height: 1.7;
+    margin-top: var(--space-lg);
+}
+
+.branding-section .social-proof {
+    margin-top: var(--space-xl);
+}
+.branding-section .trust-badges {
+    display: flex;
+    justify-content: flex-start; /* Align badges to the left */
+    gap: var(--space-sm);
+    flex-wrap: wrap;
+}
+.branding-section .badge {
+    background: rgba(0,0,0,0.03); /* Very subtle background */
+    padding: var(--space-xs) var(--space-sm);
+    border-radius: var(--radius);
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: var(--text-light);
+    border: 1px solid var(--border-light);
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+}
+.branding-section .badge i {
+    color: var(--primary); /* Icon color */
+}
+
+
+.form-section-wrapper {
+    flex: 1;
+    display: flex;
+    justify-content: center; /* Center form card if branding section is shorter */
+    align-items: center;
+    max-width: 440px; /* Max width of the form card */
+    width: 100%; /* Take full width up to max-width */
+}
+
+.form-card {
+    background-color: rgba(255, 255, 255, 0.95);
+    border-radius: var(--radius-lg);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+    padding: var(--space-xl);
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    position: relative;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.form-container {
+    display: none;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+    transform: translateY(10px);
+    width: 100%; /* Ensure form container takes full width of form-card */
+    flex-direction: column; /* Ensure children stack */
+}
+
+.form-container.active {
+    display: flex; /* Use flex for active form container */
+    opacity: 1;
+    transform: translateY(0);
+    overflow-y: auto; /* Allow internal scrolling for long forms */
+    max-height: calc(80vh - 100px); /* Example: Limit height, adjust as needed */
+    /* Add some padding at the bottom for scroll comfort */
+    padding-bottom: var(--space-lg);
+}
+
+
+.form-header { text-align: center; margin-bottom: var(--space-lg); flex-shrink: 0; }
+.form-header h2 { font-size: 1.5rem; font-weight: 600; color: var(--text-dark); margin-bottom: var(--space-sm); display: flex; align-items: center; justify-content: center; gap: var(--space-sm); }
+.form-header .form-subtitle { color: var(--text-light); font-size: 0.875rem; }
+
+.verification-icon, .forgot-icon {
+    width: 50px; height: 50px; background: var(--primary-light); border-radius: 50%;
+    display: flex; align-items: center; justify-content: center; margin: 0 auto var(--space-md);
+    font-size: 1.25rem; color: var(--primary); flex-shrink: 0;
+}
+
+.auth-form { display: flex; flex-direction: column; gap: var(--space-md); } /* Reduced gap slightly */
+
+.input-group { display: flex; flex-direction: column; gap: var(--space-xs); }
+.input-group label { font-weight: 500; font-size: 0.875rem; color: var(--text-dark); }
+.input-wrapper { position: relative; display: flex; align-items: center; }
+.input-icon { position: absolute; left: var(--space-md); color: var(--text-light); font-size: 0.875rem; }
+
+.input-wrapper input, .input-wrapper select {
+    width: 100%; padding: var(--space-sm) var(--space-sm) var(--space-sm) 2.5rem; /* Adjusted padding */
+    border: 1px solid var(--border); border-radius: var(--radius); font-size: 0.9rem;
+    transition: var(--transition); background: var(--surface); color: var(--text-dark);
+}
+.input-wrapper input:focus, .input-wrapper select:focus {
+    outline: none; border-color: var(--primary); box-shadow: 0 0 0 2px var(--primary-light);
+}
+.input-wrapper input::placeholder { color: var(--text-light); }
+
+.name-group { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-md); }
+.phone-group { display: flex; gap: var(--space-sm); }
+.country-code-wrapper { flex: 0 0 110px; }
+.country-code-wrapper select { padding-left: var(--space-sm); padding-right: var(--space-xs); }
+.phone-wrapper { flex: 1; }
+
+.password-wrapper { position: relative; }
+.toggle-password { position: absolute; right: var(--space-md); top: 50%; transform: translateY(-50%); cursor: pointer; color: var(--text-light); font-size: 0.875rem; }
+.toggle-password:hover { color: var(--primary); }
+.password-match-icon { position: absolute; right: var(--space-md); top: 50%; transform: translateY(-50%); font-size: 1rem; }
+.password-match-icon.match { color: var(--success); }
+.password-match-icon.no-match { color: var(--error); }
+
+.password-strength-indicator { margin-top: var(--space-xs); }
+.strength-bar-container { width: 100%; height: 4px; background: var(--border-light); border-radius: 2px; overflow: hidden; margin-bottom: var(--space-xs); }
+.strength-bar { height: 100%; width: 0%; transition: var(--transition); border-radius: 2px; }
+.strength-info { display: flex; justify-content: space-between; align-items: center; }
+.strength-text { font-size: 0.75rem; font-weight: 500; }
+.btn-suggest { background: none; border: 1px solid var(--border); color: var(--primary); font-size: 0.75rem; padding: 5px 8px; border-radius: var(--radius-sm); cursor: pointer; display: flex; align-items: center; gap: 0.25rem; }
+.btn-suggest:hover { background: var(--primary-light); border-color: var(--primary); }
+.btn-suggest .fas { font-size: 0.7rem; }
+
+.verification-wrapper input { text-align: center; font-family: var(--font-mono); font-size: 1.125rem; letter-spacing: 0.3em; padding-left: var(--space-md); padding-right: var(--space-md); }
+
+.checkbox-label { display: flex; align-items: flex-start; gap: var(--space-sm); cursor: pointer; font-size: 0.875rem; line-height: 1.5; color: var(--text-dark); }
+.checkbox-label input[type="checkbox"] { display: none; }
+.checkmark { width: 18px; height: 18px; border: 2px solid var(--border); border-radius: var(--radius-sm); display: flex; align-items: center; justify-content: center; transition: var(--transition); flex-shrink: 0; margin-top: 3px; }
+.checkbox-label input[type="checkbox"]:checked + .checkmark { background: var(--primary); border-color: var(--primary); }
+.checkbox-label input[type="checkbox"]:checked + .checkmark::after { content: '✓'; color: white; font-size: 12px; font-weight: bold; }
+.preferences-group { display: flex; flex-direction: column; gap: var(--space-sm); padding: var(--space-md); background: #f9fafb; border-radius: var(--radius); border: 1px solid var(--border-light); }
+
+.options-group { display: flex; justify-content: space-between; align-items: center; font-size: 0.875rem; margin-bottom: var(--space-md); }
+.form-link { color: var(--primary); text-decoration: none; transition: var(--transition); font-weight: 500; }
+.form-link:hover { color: var(--primary-hover); text-decoration: underline; }
+
+.btn { width: 100%; padding: var(--space-sm) var(--space-lg); border: none; border-radius: var(--radius); font-size: 1rem; font-weight: 600; cursor: pointer; transition: var(--transition); display: flex; align-items: center; justify-content: center; gap: var(--space-sm); line-height: 1; }
+.btn-primary { background-color: var(--primary); color: var(--text-on-primary); }
+.btn-primary:hover { background-color: var(--primary-hover); }
+
+.form-divider { text-align: center; margin: var(--space-md) 0; color: var(--text-light); font-size: 0.875rem; display: flex; align-items: center; gap: var(--space-sm); }
+.form-divider::before, .form-divider::after { content: ''; flex-grow: 1; height: 1px; background: var(--border); }
+
+.form-switch { text-align: center; font-size: 0.875rem; color: var(--text-light); margin-top: var(--space-md); }
+
+.error-message { display: block; color: var(--error); font-size: 0.75rem; margin-top: var(--space-xs); min-height: 1em; text-align: left; }
+.input-wrapper input.invalid, .input-wrapper select.invalid { border-color: var(--error); box-shadow: 0 0 0 2px rgba(239, 68, 68, 0.2); }
+.checkbox-label.invalid .checkmark { border-color: var(--error); }
+.checkbox-label.invalid { color: var(--error); }
+
+.greeting-message { background-color: var(--primary-light); color: var(--primary); padding: var(--space-md); border-radius: var(--radius); margin-bottom: var(--space-md); font-weight: 500; text-align: center; border: 1px solid var(--primary); display: none; }
+.verification-options { display: flex; justify-content: space-around; align-items: center; margin-top: var(--space-md); font-size: 0.875rem; }
+.verification-options .form-link .fas { margin-right: var(--space-xs); }
+
+#message-area {
+    padding: var(--space-md); margin-top: var(--space-md); border-radius: var(--radius);
+    font-weight: 500; display: none; text-align: left; border-width: 1px; border-style: solid;
+    flex-shrink: 0; /* Prevent shrinking if form content is large */
+}
+/* There was a typo in your provided CSS: #e0f PFE0. Corrected to a valid light green. */
+#message-area.success { background-color: #e0fde0; color: var(--success); border-color: var(--success); display: block; } /* Light green */
+#message-area.error { background-color: #fee2e2; color: var(--error); border-color: var(--error); display: block; } /* Light red */
+#message-area.loading { background-color: #e5e7eb; color: var(--text-light); border-color: var(--border); display: block; }
+
+
+.loading-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(240, 242, 245, 0.8); backdrop-filter: blur(2px); display: none; align-items: center; justify-content: center; z-index: 10000; } /* Increased z-index */
+.loading-spinner { text-align: center; color: var(--text-dark); }
+.loading-spinner .spinner { width: 40px; height: 40px; border: 4px solid var(--border-light); border-top-color: var(--primary); border-radius: 50%; animation: spin 1s linear infinite; margin: 0 auto var(--space-md); }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.page-footer {
+    width: 100%;
+    padding: var(--space-lg) var(--space-md);
+    text-align: center;
+    color: var(--text-light);
+    font-size: 0.875rem;
+    background-color: var(--page-background); /* Match page background or slightly different */
+    border-top: 1px solid var(--border-light);
+    margin-top: auto; /* Pushes footer to bottom if content is short */
+}
+.footer-links { margin-bottom: var(--space-sm); display: flex; flex-wrap: wrap; justify-content: center; gap: var(--space-sm) var(--space-md); }
+.footer-links a { color: var(--text-light); text-decoration: none; }
+.footer-links a:hover { color: var(--primary); text-decoration: underline; }
+
+/* Responsive Adjustments */
+@media (max-width: 900px) { /* Breakpoint for stacking branding and form */
+    .content-grid {
+        flex-direction: column;
+        text-align: center; /* Center branding text when stacked */
+        gap: var(--space-xl); /* Reduced gap when stacked */
+        padding-top: var(--space-lg);
+    }
+    .branding-section {
+        padding-right: 0;
+        text-align: center; /* Center align branding text */
+        max-width: 500px; /* Allow it to be a bit wider when stacked */
+        margin-bottom: var(--space-lg); /* Space below branding when stacked */
+    }
+    .branding-section .logo-container,
+    .branding-section .trust-badges {
+        align-items: center; /* Center logo items */
+        justify-content: center; /* Center trust badges */
+    }
+    .form-section-wrapper {
+        margin: 0 auto; /* Center form card */
+    }
+}
+
+@media (max-width: 520px) {
+    .form-card { padding: var(--space-lg); } /* Slightly less padding on small screens */
+    .branding-section .logo-icon { font-size: 3rem; }
+    .branding-section .logo-text { font-size: 2.25rem; }
+    .branding-section .logo-tagline { font-size: 1rem; }
+    .branding-section .branding-subtitle { font-size: 1.125rem; }
+
+    .name-group { grid-template-columns: 1fr; }
+    .phone-group { flex-direction: column; gap: var(--space-sm); }
+    .country-code-wrapper { flex: 1 1 auto; width: 100%; }
+    .options-group { flex-direction: column; align-items: flex-start; gap: var(--space-sm); }
+    .btn { padding: var(--space-sm) var(--space-md); font-size: 0.9rem; }
+    .verification-wrapper input { font-size: 1rem; letter-spacing: 0.3em; }
+    .form-container.active { max-height: calc(90vh - 80px); /* Adjust for smaller screens */ }
+}
+
+body.logged-in {
+    background-image: url('https://images.unsplash.com/photo-1540932239986-30128078f3c5');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    transition: background-image 0.5s ease-in-out;
+}
+
+body.logged-in::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(37, 99, 235, 0.2);
+    backdrop-filter: blur(6px);
+    z-index: -1;
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+}
+
+body.logged-in.overlay-active::before {
+    opacity: 1;
+}
+
+/* Make sure the page content stays above the background */
+.page-wrapper {
+    position: relative;
+    z-index: 1;
+}
