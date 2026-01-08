@@ -1,4 +1,4 @@
-# 🐍 Cobra Shop - E-Commerce Platform
+# Cobra Shop - E-Commerce Platform
 
 A full-featured e-commerce web application built with PHP, MySQL, and modern JavaScript. This project demonstrates proficiency in full-stack development, database design, security implementation, and responsive UI/UX design.
 
@@ -9,43 +9,43 @@ A full-featured e-commerce web application built with PHP, MySQL, and modern Jav
 ![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white)
 ![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white)
 
-## 📋 Table of Contents
+## Table of Contents
 
-- [Features](#-features)
-- [Tech Stack](#-tech-stack)
-- [Architecture](#-architecture)
-- [Installation](#-installation)
-- [Database Schema](#-database-schema)
-- [API Documentation](#-api-documentation)
-- [Security Features](#-security-features)
-- [Screenshots](#-screenshots)
-- [Future Enhancements](#-future-enhancements)
+- [Features](#features)
+- [Tech Stack](#tech-stack)
+- [Architecture](#architecture)
+- [Installation](#installation)
+- [Database Schema](#database-schema)
+- [API Documentation](#api-documentation)
+- [Security Features](#security-features)
+- [Screenshots](#screenshots)
+- [Future Enhancements](#future-enhancements)
 
-## ✨ Features
+## Features
 
 ### Customer Features
-- 🛒 **Shopping Cart** - Add, update, remove items with real-time updates
-- 🔐 **User Authentication** - Secure login/registration with session management
-- 📦 **Order Tracking** - Visual timeline showing order progress
-- ⭐ **Product Reviews** - Rate and review purchased products
-- 💳 **Secure Checkout** - Multiple payment methods with validation
-- 🏷️ **Discount Codes** - Apply promotional discounts at checkout
-- 📧 **Newsletter Subscription** - Stay updated with latest offers
+- **Shopping Cart** - Add, update, remove items with real-time updates
+- **User Authentication** - Secure login/registration with session management
+- **Order Tracking** - Visual timeline showing order progress
+- **Product Reviews** - Rate and review purchased products
+- **Secure Checkout** - Multiple payment methods with validation
+- **Discount Codes** - Apply promotional discounts at checkout
+- **Newsletter Subscription** - Stay updated with latest offers
 
 ### Admin Features
-- 📊 **Analytics Dashboard** - Real-time sales metrics and charts
-- 👥 **Staff Management** - Assign orders, track performance
-- 🏷️ **Discount Management** - Create, edit, toggle promotional codes
-- 📦 **Inventory Alerts** - Low stock notifications
-- 📈 **Sales Reports** - Daily, weekly, monthly revenue tracking
+- **Analytics Dashboard** - Real-time sales metrics and charts
+- **Staff Management** - Assign orders, track performance
+- **Discount Management** - Create, edit, toggle promotional codes
+- **Inventory Alerts** - Low stock notifications
+- **Sales Reports** - Daily, weekly, monthly revenue tracking
 
 ### Technical Features
-- 🔒 **Security First** - CSRF protection, rate limiting, SQL injection prevention
-- 📱 **Responsive Design** - Mobile-first approach with Bootstrap 5
-- ⚡ **Optimized Performance** - Efficient queries, lazy loading
-- 🎨 **Modern UI/UX** - Smooth animations, intuitive navigation
+- **Security First** - CSRF protection, rate limiting, SQL injection prevention
+- **Responsive Design** - Mobile-first approach with Bootstrap 5
+- **Optimized Performance** - Efficient queries, lazy loading
+- **Modern UI/UX** - Smooth animations, intuitive navigation
 
-## 🛠 Tech Stack
+## Tech Stack
 
 ### Backend
 | Technology | Purpose |
@@ -71,7 +71,7 @@ A full-featured e-commerce web application built with PHP, MySQL, and modern Jav
 | VS Code | IDE |
 | Git | Version control |
 
-## 🏗 Architecture
+## Architecture
 
 ```
 cobra-shop/
@@ -147,7 +147,7 @@ cobra-shop/
 - **RESTful API Design** - Consistent endpoint structure
 - **DRY Principle** - Reusable components and utilities
 
-## 🚀 Installation
+## Installation
 
 ### Prerequisites
 - XAMPP (or similar LAMP/WAMP stack)
@@ -202,7 +202,7 @@ cobra-shop/
    - Start Apache and MySQL in XAMPP
    - Visit `http://localhost/Database_Project`
 
-## 📊 Database Schema
+## Database Schema
 
 ### Entity Relationship Diagram
 
@@ -248,7 +248,7 @@ cobra-shop/
 | Password_Reset_Tokens | Secure password reset |
 | Security_Audit_Log | Activity logging |
 
-## 📡 API Documentation
+## API Documentation
 
 ### Authentication
 ```http
@@ -302,7 +302,7 @@ All API endpoints return consistent JSON:
 }
 ```
 
-## 🔐 Security Features
+## Security Features
 
 | Feature | Implementation |
 |---------|----------------|
@@ -321,7 +321,7 @@ X-Frame-Options: DENY
 X-XSS-Protection: 1; mode=block
 ```
 
-## 📸 Screenshots
+## Screenshots
 
 ### Home Page
 Modern product catalog with category filtering and search
@@ -335,7 +335,7 @@ Visual timeline showing order progress from placement to delivery
 ### Product Reviews
 Star ratings with verified purchase badges
 
-## 🚧 Future Enhancements
+## Future Enhancements
 
 - [ ] **Email Notifications** - Order confirmations, shipping updates
 - [ ] **Wishlist Feature** - Save products for later
@@ -348,5 +348,5 @@ Star ratings with verified purchase badges
 
 
 <p align="center">
-  Built with ❤️ for learning and portfolio purposes
+  Built for learning and portfolio purposes
 </p>
