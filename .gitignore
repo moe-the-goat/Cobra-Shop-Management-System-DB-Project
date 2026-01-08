@@ -1,0 +1,44 @@
+# Dependencies
+node_modules/
+vendor/
+
+# Environment
+.env
+.env.local
+*.local.php
+src/config/config.local.php
+
+# Logs
+logs/*.log
+*.log
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Uploads (keep folder, ignore contents)
+assets/images/products/full-size/*
+assets/images/products/thumbnails/*
+!assets/images/products/full-size/.gitkeep
+!assets/images/products/thumbnails/.gitkeep
+
+# Build
+dist/
+build/
+
+# Cache
+*.cache
+.phpunit.cache/
+
+# Sensitive
+*.pem
+*.key
+*.crt

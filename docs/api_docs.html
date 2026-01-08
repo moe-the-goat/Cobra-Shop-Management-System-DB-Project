@@ -1,0 +1,1047 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API Documentation - Cobra Shop</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet">
+    <link href="api_docs.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Skip Link -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <!-- Header -->
+    <header class="api-header">
+        <div class="container">
+            <div class="d-flex justify-content-between align-items-center">
+                <div class="brand">
+                    <img src="images/cobra-logo.png" alt="" class="logo" onerror="this.style.display='none'">
+                    <h1>Cobra Shop API</h1>
+                </div>
+                <nav aria-label="Main navigation">
+                    <a href="index.html" class="btn btn-outline-light">
+                        <i class="fas fa-home" aria-hidden="true"></i>
+                        <span>Back to Shop</span>
+                    </a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Sidebar Navigation -->
+            <aside class="col-lg-3 col-xl-2 sidebar" role="navigation" aria-label="API sections">
+                <nav class="sidebar-nav">
+                    <div class="sidebar-section">
+                        <h2>Getting Started</h2>
+                        <ul>
+                            <li><a href="#introduction">Introduction</a></li>
+                            <li><a href="#authentication">Authentication</a></li>
+                            <li><a href="#errors">Error Handling</a></li>
+                        </ul>
+                    </div>
+                    <div class="sidebar-section">
+                        <h2>Products</h2>
+                        <ul>
+                            <li><a href="#get-products">Get Products</a></li>
+                            <li><a href="#get-product-details">Get Product Details</a></li>
+                            <li><a href="#get-categories">Get Categories</a></li>
+                            <li><a href="#get-stock">Get Stock</a></li>
+                        </ul>
+                    </div>
+                    <div class="sidebar-section">
+                        <h2>Cart</h2>
+                        <ul>
+                            <li><a href="#get-cart">Get Cart</a></li>
+                            <li><a href="#add-to-cart">Add to Cart</a></li>
+                            <li><a href="#update-cart">Update Cart</a></li>
+                            <li><a href="#remove-from-cart">Remove from Cart</a></li>
+                            <li><a href="#clear-cart">Clear Cart</a></li>
+                        </ul>
+                    </div>
+                    <div class="sidebar-section">
+                        <h2>Orders</h2>
+                        <ul>
+                            <li><a href="#get-customer-orders">Get Customer Orders</a></li>
+                            <li><a href="#order-tracking">Order Tracking</a></li>
+                            <li><a href="#process-payment">Process Payment</a></li>
+                        </ul>
+                    </div>
+                    <div class="sidebar-section">
+                        <h2>Reviews</h2>
+                        <ul>
+                            <li><a href="#get-reviews">Get Reviews</a></li>
+                            <li><a href="#add-review">Add Review</a></li>
+                        </ul>
+                    </div>
+                    <div class="sidebar-section">
+                        <h2>Admin</h2>
+                        <ul>
+                            <li><a href="#dashboard-stats">Dashboard Stats</a></li>
+                            <li><a href="#discounts">Discount Management</a></li>
+                            <li><a href="#staff-management">Staff Management</a></li>
+                        </ul>
+                    </div>
+                </nav>
+            </aside>
+
+            <!-- Main Content -->
+            <main id="main-content" class="col-lg-9 col-xl-10 main-content" role="main">
+                <!-- Introduction -->
+                <section id="introduction" class="api-section">
+                    <h2>Introduction</h2>
+                    <p>Welcome to the Cobra Shop API documentation. This RESTful API provides access to all e-commerce functionality including products, cart management, orders, reviews, and administrative features.</p>
+                    
+                    <div class="info-box">
+                        <h3><i class="fas fa-server" aria-hidden="true"></i> Base URL</h3>
+                        <code class="base-url">http://localhost/Database_Project/</code>
+                    </div>
+
+                    <div class="info-box">
+                        <h3><i class="fas fa-code" aria-hidden="true"></i> Response Format</h3>
+                        <p>All responses are returned in JSON format with the following structure:</p>
+                        <pre><code class="language-json">{
+    "success": true,
+    "data": { ... },
+    "message": "Optional message"
+}</code></pre>
+                    </div>
+
+                    <div class="info-box info-box-warning">
+                        <h3><i class="fas fa-shield-alt" aria-hidden="true"></i> CSRF Protection</h3>
+                        <p>All POST, PUT, and DELETE requests require a CSRF token in the request header:</p>
+                        <pre><code class="language-http">X-CSRF-Token: your_csrf_token_here</code></pre>
+                    </div>
+                </section>
+
+                <!-- Authentication -->
+                <section id="authentication" class="api-section">
+                    <h2>Authentication</h2>
+                    <p>The API uses session-based authentication. Users must be logged in to access protected endpoints.</p>
+                    
+                    <div class="endpoint">
+                        <div class="endpoint-header">
+                            <span class="method post">POST</span>
+                            <span class="path">/login.php</span>
+                        </div>
+                        <div class="endpoint-body">
+                            <h4>Request Body</h4>
+                            <table class="params-table" aria-label="Login parameters">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Parameter</th>
+                                        <th scope="col">Type</th>
+                                        <th scope="col">Required</th>
+                                        <th scope="col">Description</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><code>email</code></td>
+                                        <td>string</td>
+                                        <td><span class="required">Yes</span></td>
+                                        <td>User email address</td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>password</code></td>
+                                        <td>string</td>
+                                        <td><span class="required">Yes</span></td>
+                                        <td>User password</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                            <h4>Example Response</h4>
+                            <pre><code class="language-json">{
+    "success": true,
+    "message": "Login successful",
+    "data": {
+        "user_id": 1,
+        "name": "John Doe",
+        "email": "john@example.com",
+        "role": "customer"
+    }
+}</code></pre>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Error Handling -->
+                <section id="errors" class="api-section">
+                    <h2>Error Handling</h2>
+                    <p>The API uses standard HTTP status codes and returns detailed error messages.</p>
+                    
+                    <table class="params-table" aria-label="HTTP status codes">
+                        <thead>
+                            <tr>
+                                <th scope="col">Status Code</th>
+                                <th scope="col">Description</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><span class="status-code success">200</span></td>
+                                <td>Success</td>
+                            </tr>
+                            <tr>
+                                <td><span class="status-code error">400</span></td>
+                                <td>Bad Request - Missing or invalid parameters</td>
+                            </tr>
+                            <tr>
+                                <td><span class="status-code error">401</span></td>
+                                <td>Unauthorized - Authentication required</td>
+                            </tr>
+                            <tr>
+                                <td><span class="status-code error">403</span></td>
+                                <td>Forbidden - Insufficient permissions</td>
+                            </tr>
+                            <tr>
+                                <td><span class="status-code error">404</span></td>
+                                <td>Not Found - Resource doesn't exist</td>
+                            </tr>
+                            <tr>
+                                <td><span class="status-code error">429</span></td>
+                                <td>Too Many Requests - Rate limit exceeded</td>
+                            </tr>
+                            <tr>
+                                <td><span class="status-code error">500</span></td>
+                                <td>Server Error - Internal error occurred</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <h4>Error Response Format</h4>
+                    <pre><code class="language-json">{
+    "success": false,
+    "error": "Error message description",
+    "code": "ERROR_CODE"
+}</code></pre>
+                </section>
+
+                <!-- Get Products -->
+                <section id="get-products" class="api-section">
+                    <h2>Get Products</h2>
+                    <p>Retrieve a list of products with optional filtering and pagination.</p>
+                    
+                    <div class="endpoint">
+                        <div class="endpoint-header">
+                            <span class="method get">GET</span>
+                            <span class="path">/get-products.php</span>
+                        </div>
+                        <div class="endpoint-body">
+                            <h4>Query Parameters</h4>
+                            <table class="params-table" aria-label="Get products parameters">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Parameter</th>
+                                        <th scope="col">Type</th>
+                                        <th scope="col">Default</th>
+                                        <th scope="col">Description</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><code>category</code></td>
+                                        <td>integer</td>
+                                        <td>-</td>
+                                        <td>Filter by category ID</td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>search</code></td>
+                                        <td>string</td>
+                                        <td>-</td>
+                                        <td>Search term for product names</td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>min_price</code></td>
+                                        <td>number</td>
+                                        <td>-</td>
+                                        <td>Minimum price filter</td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>max_price</code></td>
+                                        <td>number</td>
+                                        <td>-</td>
+                                        <td>Maximum price filter</td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>sort</code></td>
+                                        <td>string</td>
+                                        <td>name</td>
+                                        <td>Sort field (name, price, created_at)</td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>order</code></td>
+                                        <td>string</td>
+                                        <td>asc</td>
+                                        <td>Sort order (asc, desc)</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                            <h4>Example Request</h4>
+                            <pre><code class="language-http">GET /get-products.php?category=1&sort=price&order=asc</code></pre>
+
+                            <h4>Example Response</h4>
+                            <pre><code class="language-json">{
+    "success": true,
+    "data": [
+        {
+            "product_id": 1,
+            "name": "Wireless Headphones",
+            "description": "High-quality wireless headphones",
+            "price": 99.99,
+            "stock_quantity": 50,
+            "category_id": 1,
+            "category_name": "Electronics",
+            "image_url": "images/products/headphones.jpg",
+            "avg_rating": 4.5,
+            "review_count": 12
+        }
+    ],
+    "total": 25,
+    "page": 1,
+    "per_page": 12
+}</code></pre>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Get Product Details -->
+                <section id="get-product-details" class="api-section">
+                    <h2>Get Product Details</h2>
+                    <p>Retrieve detailed information about a specific product.</p>
+                    
+                    <div class="endpoint">
+                        <div class="endpoint-header">
+                            <span class="method get">GET</span>
+                            <span class="path">/get-product-details.php</span>
+                        </div>
+                        <div class="endpoint-body">
+                            <h4>Query Parameters</h4>
+                            <table class="params-table" aria-label="Get product details parameters">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Parameter</th>
+                                        <th scope="col">Type</th>
+                                        <th scope="col">Required</th>
+                                        <th scope="col">Description</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><code>id</code></td>
+                                        <td>integer</td>
+                                        <td><span class="required">Yes</span></td>
+                                        <td>Product ID</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                            <h4>Example Response</h4>
+                            <pre><code class="language-json">{
+    "success": true,
+    "data": {
+        "product_id": 1,
+        "name": "Wireless Headphones",
+        "description": "Premium wireless headphones with noise cancellation...",
+        "price": 99.99,
+        "stock_quantity": 50,
+        "category_id": 1,
+        "category_name": "Electronics",
+        "image_url": "images/products/full-size/headphones.jpg",
+        "thumbnail_url": "images/products/thumbnails/headphones.jpg",
+        "avg_rating": 4.5,
+        "review_count": 12,
+        "created_at": "2024-01-15T10:30:00Z"
+    }
+}</code></pre>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Get Categories -->
+                <section id="get-categories" class="api-section">
+                    <h2>Get Categories</h2>
+                    <p>Retrieve all product categories.</p>
+                    
+                    <div class="endpoint">
+                        <div class="endpoint-header">
+                            <span class="method get">GET</span>
+                            <span class="path">/get-categories.php</span>
+                        </div>
+                        <div class="endpoint-body">
+                            <h4>Example Response</h4>
+                            <pre><code class="language-json">{
+    "success": true,
+    "data": [
+        {
+            "category_id": 1,
+            "name": "Electronics",
+            "description": "Electronic devices and accessories",
+            "product_count": 45
+        },
+        {
+            "category_id": 2,
+            "name": "Clothing",
+            "description": "Apparel and fashion items",
+            "product_count": 120
+        }
+    ]
+}</code></pre>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Get Stock -->
+                <section id="get-stock" class="api-section">
+                    <h2>Get Stock</h2>
+                    <p>Check real-time stock availability for a product.</p>
+                    
+                    <div class="endpoint">
+                        <div class="endpoint-header">
+                            <span class="method get">GET</span>
+                            <span class="path">/get-product-stock.php</span>
+                        </div>
+                        <div class="endpoint-body">
+                            <h4>Query Parameters</h4>
+                            <table class="params-table" aria-label="Get stock parameters">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Parameter</th>
+                                        <th scope="col">Type</th>
+                                        <th scope="col">Required</th>
+                                        <th scope="col">Description</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><code>product_id</code></td>
+                                        <td>integer</td>
+                                        <td><span class="required">Yes</span></td>
+                                        <td>Product ID</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                            <h4>Example Response</h4>
+                            <pre><code class="language-json">{
+    "success": true,
+    "data": {
+        "product_id": 1,
+        "stock_quantity": 50,
+        "in_stock": true,
+        "low_stock": false
+    }
+}</code></pre>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Cart Endpoints -->
+                <section id="get-cart" class="api-section">
+                    <h2>Get Cart</h2>
+                    <p>Retrieve the current user's shopping cart contents.</p>
+                    
+                    <div class="endpoint">
+                        <div class="endpoint-header">
+                            <span class="method get">GET</span>
+                            <span class="path">/get-cart.php</span>
+                            <span class="auth-badge">Auth Required</span>
+                        </div>
+                        <div class="endpoint-body">
+                            <h4>Example Response</h4>
+                            <pre><code class="language-json">{
+    "success": true,
+    "data": {
+        "items": [
+            {
+                "cart_id": 1,
+                "product_id": 1,
+                "name": "Wireless Headphones",
+                "price": 99.99,
+                "quantity": 2,
+                "image_url": "images/products/thumbnails/headphones.jpg",
+                "subtotal": 199.98
+            }
+        ],
+        "total_items": 2,
+        "subtotal": 199.98,
+        "discount": 0,
+        "total": 199.98
+    }
+}</code></pre>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="add-to-cart" class="api-section">
+                    <h2>Add to Cart</h2>
+                    <p>Add a product to the shopping cart.</p>
+                    
+                    <div class="endpoint">
+                        <div class="endpoint-header">
+                            <span class="method post">POST</span>
+                            <span class="path">/add-to-cart.php</span>
+                            <span class="auth-badge">Auth Required</span>
+                        </div>
+                        <div class="endpoint-body">
+                            <h4>Request Body</h4>
+                            <table class="params-table" aria-label="Add to cart parameters">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Parameter</th>
+                                        <th scope="col">Type</th>
+                                        <th scope="col">Required</th>
+                                        <th scope="col">Description</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><code>product_id</code></td>
+                                        <td>integer</td>
+                                        <td><span class="required">Yes</span></td>
+                                        <td>Product ID to add</td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>quantity</code></td>
+                                        <td>integer</td>
+                                        <td>No</td>
+                                        <td>Quantity (default: 1)</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                            <h4>Example Response</h4>
+                            <pre><code class="language-json">{
+    "success": true,
+    "message": "Product added to cart",
+    "data": {
+        "cart_count": 3
+    }
+}</code></pre>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="update-cart" class="api-section">
+                    <h2>Update Cart</h2>
+                    <p>Update the quantity of an item in the cart.</p>
+                    
+                    <div class="endpoint">
+                        <div class="endpoint-header">
+                            <span class="method post">POST</span>
+                            <span class="path">/update-cart.php</span>
+                            <span class="auth-badge">Auth Required</span>
+                        </div>
+                        <div class="endpoint-body">
+                            <h4>Request Body</h4>
+                            <table class="params-table" aria-label="Update cart parameters">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Parameter</th>
+                                        <th scope="col">Type</th>
+                                        <th scope="col">Required</th>
+                                        <th scope="col">Description</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><code>cart_id</code></td>
+                                        <td>integer</td>
+                                        <td><span class="required">Yes</span></td>
+                                        <td>Cart item ID</td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>quantity</code></td>
+                                        <td>integer</td>
+                                        <td><span class="required">Yes</span></td>
+                                        <td>New quantity</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="remove-from-cart" class="api-section">
+                    <h2>Remove from Cart</h2>
+                    <p>Remove an item from the shopping cart.</p>
+                    
+                    <div class="endpoint">
+                        <div class="endpoint-header">
+                            <span class="method post">POST</span>
+                            <span class="path">/remove-from-cart.php</span>
+                            <span class="auth-badge">Auth Required</span>
+                        </div>
+                        <div class="endpoint-body">
+                            <h4>Request Body</h4>
+                            <table class="params-table" aria-label="Remove from cart parameters">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Parameter</th>
+                                        <th scope="col">Type</th>
+                                        <th scope="col">Required</th>
+                                        <th scope="col">Description</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><code>cart_id</code></td>
+                                        <td>integer</td>
+                                        <td><span class="required">Yes</span></td>
+                                        <td>Cart item ID to remove</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="clear-cart" class="api-section">
+                    <h2>Clear Cart</h2>
+                    <p>Remove all items from the shopping cart.</p>
+                    
+                    <div class="endpoint">
+                        <div class="endpoint-header">
+                            <span class="method post">POST</span>
+                            <span class="path">/clear-cart.php</span>
+                            <span class="auth-badge">Auth Required</span>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Order Endpoints -->
+                <section id="get-customer-orders" class="api-section">
+                    <h2>Get Customer Orders</h2>
+                    <p>Retrieve order history for the logged-in customer.</p>
+                    
+                    <div class="endpoint">
+                        <div class="endpoint-header">
+                            <span class="method get">GET</span>
+                            <span class="path">/get_customer_orders.php</span>
+                            <span class="auth-badge">Auth Required</span>
+                        </div>
+                        <div class="endpoint-body">
+                            <h4>Example Response</h4>
+                            <pre><code class="language-json">{
+    "success": true,
+    "data": [
+        {
+            "order_id": 1001,
+            "order_date": "2024-01-20T14:30:00Z",
+            "status": "Shipped",
+            "total_amount": 199.98,
+            "item_count": 2,
+            "shipping_address": "123 Main St, City, State 12345"
+        }
+    ]
+}</code></pre>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="order-tracking" class="api-section">
+                    <h2>Order Tracking</h2>
+                    <p>Get detailed order information with timeline tracking.</p>
+                    
+                    <div class="endpoint">
+                        <div class="endpoint-header">
+                            <span class="method get">GET</span>
+                            <span class="path">/api/order_tracking.php</span>
+                        </div>
+                        <div class="endpoint-body">
+                            <h4>Query Parameters</h4>
+                            <table class="params-table" aria-label="Order tracking parameters">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Parameter</th>
+                                        <th scope="col">Type</th>
+                                        <th scope="col">Required</th>
+                                        <th scope="col">Description</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><code>order_id</code></td>
+                                        <td>integer</td>
+                                        <td><span class="required">Yes</span></td>
+                                        <td>Order ID to track</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                            <h4>Example Response</h4>
+                            <pre><code class="language-json">{
+    "success": true,
+    "data": {
+        "order_id": 1001,
+        "status": "Shipped",
+        "order_date": "2024-01-20T14:30:00Z",
+        "total_amount": 199.98,
+        "customer": {
+            "name": "John Doe",
+            "email": "john@example.com"
+        },
+        "items": [...],
+        "timeline": [
+            {
+                "status": "Order Placed",
+                "date": "2024-01-20T14:30:00Z",
+                "completed": true
+            },
+            {
+                "status": "Processing",
+                "date": "2024-01-20T15:00:00Z",
+                "completed": true
+            },
+            {
+                "status": "Shipped",
+                "date": "2024-01-21T09:00:00Z",
+                "completed": true
+            },
+            {
+                "status": "Delivered",
+                "date": null,
+                "completed": false
+            }
+        ]
+    }
+}</code></pre>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="process-payment" class="api-section">
+                    <h2>Process Payment</h2>
+                    <p>Process a payment and create an order.</p>
+                    
+                    <div class="endpoint">
+                        <div class="endpoint-header">
+                            <span class="method post">POST</span>
+                            <span class="path">/process-payment.php</span>
+                            <span class="auth-badge">Auth Required</span>
+                        </div>
+                        <div class="endpoint-body">
+                            <h4>Request Body</h4>
+                            <table class="params-table" aria-label="Process payment parameters">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Parameter</th>
+                                        <th scope="col">Type</th>
+                                        <th scope="col">Required</th>
+                                        <th scope="col">Description</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><code>payment_method</code></td>
+                                        <td>string</td>
+                                        <td><span class="required">Yes</span></td>
+                                        <td>Payment method (card, paypal, etc.)</td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>shipping_address</code></td>
+                                        <td>object</td>
+                                        <td><span class="required">Yes</span></td>
+                                        <td>Shipping address details</td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>discount_code</code></td>
+                                        <td>string</td>
+                                        <td>No</td>
+                                        <td>Discount code to apply</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Reviews -->
+                <section id="get-reviews" class="api-section">
+                    <h2>Get Reviews</h2>
+                    <p>Get product reviews with pagination and sorting.</p>
+                    
+                    <div class="endpoint">
+                        <div class="endpoint-header">
+                            <span class="method get">GET</span>
+                            <span class="path">/api/get_reviews.php</span>
+                        </div>
+                        <div class="endpoint-body">
+                            <h4>Query Parameters</h4>
+                            <table class="params-table" aria-label="Get reviews parameters">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Parameter</th>
+                                        <th scope="col">Type</th>
+                                        <th scope="col">Default</th>
+                                        <th scope="col">Description</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><code>product_id</code></td>
+                                        <td>integer</td>
+                                        <td>-</td>
+                                        <td>Product ID (required)</td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>page</code></td>
+                                        <td>integer</td>
+                                        <td>1</td>
+                                        <td>Page number</td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>limit</code></td>
+                                        <td>integer</td>
+                                        <td>10</td>
+                                        <td>Reviews per page</td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>sort</code></td>
+                                        <td>string</td>
+                                        <td>newest</td>
+                                        <td>Sort order (newest, highest, lowest)</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                            <h4>Example Response</h4>
+                            <pre><code class="language-json">{
+    "success": true,
+    "data": {
+        "reviews": [
+            {
+                "review_id": 1,
+                "customer_name": "John D.",
+                "rating": 5,
+                "title": "Excellent product!",
+                "review_text": "These headphones exceeded my expectations...",
+                "created_at": "2024-01-18T10:00:00Z",
+                "verified_purchase": true
+            }
+        ],
+        "pagination": {
+            "current_page": 1,
+            "total_pages": 3,
+            "total_reviews": 25
+        },
+        "rating_distribution": {
+            "5": 15,
+            "4": 6,
+            "3": 2,
+            "2": 1,
+            "1": 1
+        },
+        "average_rating": 4.5
+    }
+}</code></pre>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="add-review" class="api-section">
+                    <h2>Add Review</h2>
+                    <p>Submit a product review.</p>
+                    
+                    <div class="endpoint">
+                        <div class="endpoint-header">
+                            <span class="method post">POST</span>
+                            <span class="path">/api/add_review.php</span>
+                            <span class="auth-badge">Auth Required</span>
+                        </div>
+                        <div class="endpoint-body">
+                            <h4>Request Body</h4>
+                            <table class="params-table" aria-label="Add review parameters">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Parameter</th>
+                                        <th scope="col">Type</th>
+                                        <th scope="col">Required</th>
+                                        <th scope="col">Description</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><code>product_id</code></td>
+                                        <td>integer</td>
+                                        <td><span class="required">Yes</span></td>
+                                        <td>Product ID</td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>rating</code></td>
+                                        <td>integer</td>
+                                        <td><span class="required">Yes</span></td>
+                                        <td>Rating (1-5)</td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>title</code></td>
+                                        <td>string</td>
+                                        <td>No</td>
+                                        <td>Review title (max 100 chars)</td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>review_text</code></td>
+                                        <td>string</td>
+                                        <td>No</td>
+                                        <td>Review content (max 2000 chars)</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Admin Endpoints -->
+                <section id="dashboard-stats" class="api-section">
+                    <h2>Dashboard Statistics</h2>
+                    <p>Get comprehensive dashboard statistics for admin users.</p>
+                    
+                    <div class="endpoint">
+                        <div class="endpoint-header">
+                            <span class="method get">GET</span>
+                            <span class="path">/api/dashboard_stats.php</span>
+                            <span class="auth-badge admin">Admin Only</span>
+                        </div>
+                        <div class="endpoint-body">
+                            <h4>Query Parameters</h4>
+                            <table class="params-table" aria-label="Dashboard stats parameters">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Parameter</th>
+                                        <th scope="col">Type</th>
+                                        <th scope="col">Default</th>
+                                        <th scope="col">Description</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><code>period</code></td>
+                                        <td>string</td>
+                                        <td>30</td>
+                                        <td>Time period (7, 30, 90, 365 days)</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                            <h4>Response Includes</h4>
+                            <ul class="feature-list">
+                                <li>Total revenue and growth percentage</li>
+                                <li>Order counts and status breakdown</li>
+                                <li>Customer statistics</li>
+                                <li>Daily sales trends</li>
+                                <li>Top selling products</li>
+                                <li>Category performance</li>
+                                <li>Staff performance metrics</li>
+                                <li>Low stock alerts</li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="discounts" class="api-section">
+                    <h2>Discount Management</h2>
+                    <p>Manage discount codes and promotions.</p>
+                    
+                    <div class="endpoint">
+                        <div class="endpoint-header">
+                            <span class="method get">GET</span>
+                            <span class="path">/get_discounts.php</span>
+                            <span class="auth-badge admin">Admin Only</span>
+                        </div>
+                    </div>
+
+                    <div class="endpoint">
+                        <div class="endpoint-header">
+                            <span class="method post">POST</span>
+                            <span class="path">/add_discount.php</span>
+                            <span class="auth-badge admin">Admin Only</span>
+                        </div>
+                    </div>
+
+                    <div class="endpoint">
+                        <div class="endpoint-header">
+                            <span class="method post">POST</span>
+                            <span class="path">/update_discount.php</span>
+                            <span class="auth-badge admin">Admin Only</span>
+                        </div>
+                    </div>
+
+                    <div class="endpoint">
+                        <div class="endpoint-header">
+                            <span class="method post">POST</span>
+                            <span class="path">/delete_discount.php</span>
+                            <span class="auth-badge admin">Admin Only</span>
+                        </div>
+                    </div>
+
+                    <div class="endpoint">
+                        <div class="endpoint-header">
+                            <span class="method post">POST</span>
+                            <span class="path">/validate_discount.php</span>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="staff-management" class="api-section">
+                    <h2>Staff Management</h2>
+                    <p>Manage staff members and order assignments.</p>
+                    
+                    <div class="endpoint">
+                        <div class="endpoint-header">
+                            <span class="method get">GET</span>
+                            <span class="path">/get_staff.php</span>
+                            <span class="auth-badge admin">Admin Only</span>
+                        </div>
+                    </div>
+
+                    <div class="endpoint">
+                        <div class="endpoint-header">
+                            <span class="method get">GET</span>
+                            <span class="path">/get_staff_orders.php</span>
+                            <span class="auth-badge admin">Admin Only</span>
+                        </div>
+                    </div>
+
+                    <div class="endpoint">
+                        <div class="endpoint-header">
+                            <span class="method post">POST</span>
+                            <span class="path">/assign_sales_order.php</span>
+                            <span class="auth-badge admin">Admin Only</span>
+                        </div>
+                    </div>
+
+                    <div class="endpoint">
+                        <div class="endpoint-header">
+                            <span class="method post">POST</span>
+                            <span class="path">/update_order_status.php</span>
+                            <span class="auth-badge admin">Admin Only</span>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Footer -->
+                <footer class="api-footer">
+                    <p>&copy; 2024 Cobra Shop. All rights reserved.</p>
+                    <p>
+                        <a href="https://github.com/yourusername/cobra-shop" target="_blank" rel="noopener">
+                            <i class="fab fa-github" aria-hidden="true"></i> View on GitHub
+                        </a>
+                    </p>
+                </footer>
+            </main>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-json.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-http.min.js"></script>
+    <script src="api_docs.js"></script>
+</body>
+</html>

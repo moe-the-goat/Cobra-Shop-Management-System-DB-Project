@@ -1,0 +1,450 @@
+/* Order Tracking Styles */
+:root {
+    --primary-color: #4361ee;
+    --success-color: #2ec4b6;
+    --warning-color: #ff9f1c;
+    --danger-color: #e63946;
+    --dark-color: #1a1a2e;
+    --light-bg: #f8f9fa;
+    --timeline-line: #dee2e6;
+    --timeline-active: #4361ee;
+}
+
+body {
+    background-color: var(--light-bg);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+main {
+    flex: 1;
+}
+
+/* Search Section */
+.search-section {
+    padding: 40px 20px;
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+
+.search-box {
+    max-width: 600px;
+}
+
+.search-box .input-group-text {
+    background: var(--primary-color);
+    color: white;
+    border: none;
+}
+
+.search-box .form-control {
+    border: 2px solid #e9ecef;
+}
+
+.search-box .form-control:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 0.2rem rgba(67, 97, 238, 0.15);
+}
+
+/* Error State */
+.error-icon {
+    font-size: 4rem;
+}
+
+/* Order Summary Card */
+.order-summary-card {
+    background: white;
+    padding: 30px;
+    border-radius: 16px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+
+.order-id {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--dark-color);
+    margin-bottom: 5px;
+}
+
+.order-date {
+    color: #6c757d;
+    margin: 0;
+}
+
+.order-date i {
+    color: var(--primary-color);
+    margin-right: 5px;
+}
+
+.order-total {
+    font-size: 1.2rem;
+    color: var(--dark-color);
+}
+
+.order-total strong {
+    color: var(--success-color);
+}
+
+/* Status Badges */
+.status-badge {
+    display: inline-block;
+    padding: 8px 20px;
+    border-radius: 30px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.status-badge.pending {
+    background: linear-gradient(135deg, #fff3cd, #ffe69c);
+    color: #856404;
+}
+
+.status-badge.processing {
+    background: linear-gradient(135deg, #cce5ff, #b8daff);
+    color: #004085;
+}
+
+.status-badge.shipped {
+    background: linear-gradient(135deg, #d4edda, #c3e6cb);
+    color: #155724;
+}
+
+.status-badge.delivered {
+    background: linear-gradient(135deg, #2ec4b6, #20a39e);
+    color: white;
+}
+
+.status-badge.cancelled {
+    background: linear-gradient(135deg, #f8d7da, #f5c6cb);
+    color: #721c24;
+}
+
+.status-badge.returned {
+    background: linear-gradient(135deg, #e2e3e5, #d6d8db);
+    color: #383d41;
+}
+
+/* Timeline Section */
+.timeline-section {
+    background: white;
+    padding: 30px;
+    border-radius: 16px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+
+.section-title {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--dark-color);
+    margin-bottom: 25px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.section-title i {
+    color: var(--primary-color);
+}
+
+/* Timeline */
+.timeline {
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+    padding: 20px 0;
+}
+
+.timeline::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: var(--timeline-line);
+    transform: translateY(-50%);
+    z-index: 1;
+}
+
+.timeline-item {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    flex: 1;
+}
+
+.timeline-icon {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: white;
+    border: 4px solid var(--timeline-line);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 15px;
+    font-size: 1.4rem;
+    color: #adb5bd;
+    transition: all 0.3s ease;
+}
+
+.timeline-item.completed .timeline-icon {
+    background: var(--success-color);
+    border-color: var(--success-color);
+    color: white;
+}
+
+.timeline-item.active .timeline-icon {
+    background: var(--primary-color);
+    border-color: var(--primary-color);
+    color: white;
+    transform: scale(1.1);
+    box-shadow: 0 0 0 8px rgba(67, 97, 238, 0.2);
+}
+
+.timeline-item.cancelled .timeline-icon {
+    background: var(--danger-color);
+    border-color: var(--danger-color);
+    color: white;
+}
+
+.timeline-item.returned .timeline-icon {
+    background: #6c757d;
+    border-color: #6c757d;
+    color: white;
+}
+
+.timeline-status {
+    font-weight: 600;
+    color: var(--dark-color);
+    margin-bottom: 5px;
+}
+
+.timeline-item.completed .timeline-status,
+.timeline-item.active .timeline-status {
+    color: var(--primary-color);
+}
+
+.timeline-description {
+    font-size: 0.85rem;
+    color: #6c757d;
+}
+
+.timeline-date {
+    font-size: 0.8rem;
+    color: #adb5bd;
+    margin-top: 5px;
+}
+
+/* Progress line animation */
+.timeline-progress {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    height: 4px;
+    background: var(--success-color);
+    transform: translateY(-50%);
+    z-index: 1;
+    transition: width 0.5s ease;
+}
+
+/* Details Cards */
+.details-card {
+    background: white;
+    padding: 25px;
+    border-radius: 16px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+
+/* Items List */
+.items-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.item-row {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 15px;
+    background: var(--light-bg);
+    border-radius: 12px;
+    transition: all 0.3s ease;
+}
+
+.item-row:hover {
+    transform: translateX(5px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.item-image {
+    width: 70px;
+    height: 70px;
+    border-radius: 10px;
+    object-fit: cover;
+    background: #e9ecef;
+}
+
+.item-details {
+    flex: 1;
+}
+
+.item-name {
+    font-weight: 600;
+    color: var(--dark-color);
+    margin-bottom: 5px;
+}
+
+.item-quantity {
+    font-size: 0.9rem;
+    color: #6c757d;
+}
+
+.item-price {
+    font-weight: 700;
+    color: var(--primary-color);
+    font-size: 1.1rem;
+}
+
+/* Address Info */
+.address-info {
+    color: #495057;
+    line-height: 1.6;
+}
+
+.customer-name {
+    font-weight: 600;
+    color: var(--dark-color);
+    font-size: 1.1rem;
+    margin-bottom: 10px;
+}
+
+.customer-address {
+    margin-bottom: 15px;
+}
+
+.customer-contact {
+    font-size: 0.9rem;
+    color: #6c757d;
+}
+
+.customer-contact i {
+    color: var(--primary-color);
+    width: 20px;
+    margin-right: 5px;
+}
+
+/* Payment Info */
+.payment-info {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.payment-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.payment-label {
+    color: #6c757d;
+}
+
+.payment-value {
+    font-weight: 600;
+    color: var(--dark-color);
+}
+
+.payment-value.success {
+    color: var(--success-color);
+}
+
+/* Actions */
+.actions-section {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+/* Footer */
+.footer {
+    margin-top: auto;
+}
+
+/* Responsive Timeline */
+@media (max-width: 768px) {
+    .timeline {
+        flex-direction: column;
+        gap: 30px;
+        padding-left: 60px;
+    }
+    
+    .timeline::before {
+        width: 4px;
+        height: 100%;
+        top: 0;
+        left: 30px;
+        transform: none;
+    }
+    
+    .timeline-item {
+        text-align: left;
+        display: flex;
+        align-items: flex-start;
+        gap: 15px;
+    }
+    
+    .timeline-icon {
+        position: absolute;
+        left: 0;
+        margin: 0;
+        width: 50px;
+        height: 50px;
+        font-size: 1.2rem;
+    }
+    
+    .timeline-content {
+        padding-left: 10px;
+    }
+}
+
+/* Animations */
+@keyframes pulse {
+    0%, 100% {
+        box-shadow: 0 0 0 0 rgba(67, 97, 238, 0.4);
+    }
+    50% {
+        box-shadow: 0 0 0 15px rgba(67, 97, 238, 0);
+    }
+}
+
+.timeline-item.active .timeline-icon {
+    animation: pulse 2s infinite;
+}
+
+@keyframes slideInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.order-summary-card,
+.timeline-section,
+.details-card {
+    animation: slideInUp 0.5s ease forwards;
+}
+
+.timeline-section { animation-delay: 0.1s; }
+.details-card { animation-delay: 0.2s; }
